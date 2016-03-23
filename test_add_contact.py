@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.action_chains import ActionChains
-import time, unittest
+import unittest
+from contact import contact
 
 def is_alert_present(wd):
     try:
@@ -19,47 +20,47 @@ class test_add_contact(unittest.TestCase):
         wd = self.wd
         self.open_home_page(wd)
         self.login(wd, username="admin",password="secret")
-        self.create_contact(wd, firstname="Ульяна",middlename= "Владимировна", lastname="Ватракшина",nickname= "ulik",company= "1c",adress= "дмитровское ш 9",
-                            email="ulikwwwww@ya.ru")
+        self.create_contact(wd, contact(firstname="Ульяна",middlename= "Владимировна", lastname="Ватракшина",nickname= "ulik",company= "1c",adress= "дмитровское ш 9",
+                            email="ulikwwwww@ya.ru"))
         self.logout(wd)
     def test_add__empty_contact(self):
             wd = self.wd
             self.open_home_page(wd)
             self.login(wd, username="admin",password="secret")
-            self.create_contact(wd, firstname="",middlename= "", lastname="",nickname= "",company= "",adress= "",
-                                email="")
+            self.create_contact(wd, contact(firstname="",middlename= "", lastname="",nickname= "",company= "",adress= "",
+                                email=""))
             self.logout(wd)
 
     def logout(self, wd):
         wd.find_element_by_link_text("Logout").click()
 
-    def create_contact(self, wd, firstname, middlename, lastname, nickname, company, adress, email):
+    def create_contact(self, wd, contact):
         # init new contact
         wd.find_element_by_link_text("add new").click()
         # fill contact form
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(firstname)
+        wd.find_element_by_name("firstname").send_keys(contact.firstname)
         wd.find_element_by_name("middlename").click()
         wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(middlename)
+        wd.find_element_by_name("middlename").send_keys(contact.middlename)
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(lastname)
+        wd.find_element_by_name("lastname").send_keys(contact.lastname)
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys(nickname)
+        wd.find_element_by_name("nickname").send_keys(contact.nickname)
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys(company)
+        wd.find_element_by_name("company").send_keys(contact.company)
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys(adress)
+        wd.find_element_by_name("address").send_keys(contact.adress)
         wd.find_element_by_name("email").click()
         ActionChains(wd).double_click(wd.find_element_by_name("email")).perform()
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(email)
+        wd.find_element_by_name("email").send_keys(contact.email)
         # submit contact form
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
