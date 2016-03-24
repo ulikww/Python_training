@@ -4,7 +4,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 import unittest
 from contact import contact
 
-def is_alert_present(wd):
+def is_alert_present():
     try:
         wd.switch_to_alert().text
         return True
@@ -17,22 +17,22 @@ class test_add_contact(unittest.TestCase):
         self.wd.implicitly_wait(60)
     
     def test_add_contact(self):
-        wd = self.wd
-        self.login(wd, username="admin",password="secret")
-        self.create_contact(wd, contact(firstname="Ульяна",middlename= "Владимировна", lastname="Ватракшина",nickname= "ulik",company= "1c",adress= "дмитровское ш 9",
+        self.login(username="admin",password="secret")
+        self.create_contact(contact(firstname="Ульяна",middlename= "Владимировна", lastname="Ватракшина",nickname= "ulik",company= "1c",adress= "дмитровское ш 9",
                             email="ulikwwwww@ya.ru"))
-        self.logout(wd)
+        self.logout()
     def test_add__empty_contact(self):
-            wd = self.wd
-            self.login(wd, username="admin",password="secret")
-            self.create_contact(wd, contact(firstname="",middlename= "", lastname="",nickname= "",company= "",adress= "",
+            self.login(username="admin",password="secret")
+            self.create_contact(contact(firstname="",middlename= "", lastname="",nickname= "",company= "",adress= "",
                                 email=""))
-            self.logout(wd)
+            self.logout()
 
-    def logout(self, wd):
+    def logout(self):
+        wd = self.wd
         wd.find_element_by_link_text("Logout").click()
 
-    def create_contact(self, wd, contact):
+    def create_contact(self, contact):
+        wd = self.wd
         # init new contact
         wd.find_element_by_link_text("add new").click()
         # fill contact form
@@ -62,8 +62,9 @@ class test_add_contact(unittest.TestCase):
         # submit contact form
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
 
-    def login(self, wd, username, password):
-        self.open_home_page(wd)
+    def login(self, username, password):
+        wd = self.wd
+        self.open_home_page()
         wd.find_element_by_id("content").click()
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
@@ -74,7 +75,8 @@ class test_add_contact(unittest.TestCase):
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
         wd.find_element_by_xpath("//div/div[3]/ul/li[2]/a").click()
 
-    def open_home_page(self, wd):
+    def open_home_page(self):
+        wd = self.wd
         wd.get("http://localhost/addressbook/delete.php?part=2;")
 
     def tearDown(self):
