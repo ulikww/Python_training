@@ -1,15 +1,10 @@
-from selenium.webdriver.firefox.webdriver import WebDriver
-from fixture.session import SessionHelper
 
-class application_c:
-    def __init__(self):
-        self.wd = WebDriver()
-        self.wd.implicitly_wait(60)
-        self.session = SessionHelper(self)
+class ContactHelper:
+    def __init__(self,app):
+            self.app = app
 
-
-    def create_contact(self, contact):
-        wd = self.wd
+    def create(self, contact):
+        wd = self.app.wd
         # init new contact
         wd.find_element_by_link_text("add new").click()
         # fill contact form
@@ -37,10 +32,3 @@ class application_c:
         wd.find_element_by_name("email").send_keys(contact.email)
         # submit contact form
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
-
-    def open_home_page(self):
-        wd = self.wd
-        wd.get("http://localhost/addressbook/delete.php?part=2;")
-
-    def destroy(self):
-        self.wd.quit()
