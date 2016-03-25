@@ -14,12 +14,12 @@ def app(request):
 
 
 def test_add_group(app):
-    app.Login(username="admin", password="secret")
+    app.session.Login(username="admin", password="secret")
     app.Create_group(Group(name= "dgdgdgd", header="dgdgdgd",footer= "dgdgdg"))
-    app.Logout()
+    app.session.Logout()
 
 
 def test_add_ampty_group(app):
-    app.Login(username="admin", password="secret")
+    app.session.Login(username="admin", password="secret")
     app.Create_group(Group(name= "", header="",footer= ""))
-    app.Logout()
+    app.session.Logout()
