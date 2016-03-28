@@ -5,6 +5,7 @@ from model.group import Group
 def test_add_group(app):
     app.session.Login(username="admin", password="secret")
     app.group.create(Group(name="dgdgdgd", header="dgdgdgd", footer="dgdgdg"))
+    app.group.create(Group(name="родитель", header="родитель", footer="родитель"))
     app.session.Logout()
 
 
@@ -12,3 +13,5 @@ def test_add_ampty_group(app):
     app.session.Login(username="admin", password="secret")
     app.group.create(Group(name="", header="", footer=""))
     app.session.Logout()
+
+

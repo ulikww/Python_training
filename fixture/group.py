@@ -38,3 +38,17 @@ class GroupHelper:
         def Open_group_page(self):
             wd = self.app.wd
             wd.find_element_by_link_text("groups").click()
+
+
+        def modification(self, group):
+            wd = self.app.wd
+            self.Open_group_page()
+            #select group
+            wd.find_element_by_name("selected[]").click()
+            #submit modification group
+            wd.find_element_by_css_selector("#content > form:nth-child(2) > input:nth-child(10)").click()
+            #modification group
+            if group.Parent_group!="none":
+                if not wd.find_element_by_xpath(group.Parent_group).is_selected():
+                    wd.find_element_by_xpath(group.Parent_group).click()
+            wd.find_element_by_name("update").click()
