@@ -43,5 +43,29 @@ class ContactHelper:
         #confirm the deletion
         wd.switch_to_alert().accept()
 
+    def modification(self, contact):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+        #select contact
+        wd.find_element_by_name("selected[]").click()
+        #modification contact
+        wd.find_element_by_css_selector("td.center:nth-child(8) > a:nth-child(1) > img:nth-child(1)").click()
+
+        if contact.bday != "":
+            if not wd.find_element_by_xpath(contact.bday).is_selected():
+                wd.find_element_by_xpath(contact.bday).click()
+        if contact.bmonth !="":
+            if not wd.find_element_by_xpath(contact.bmonth).is_selected():
+                wd.find_element_by_xpath(contact.bmonth).click()
+        if contact.byear != "":
+            wd.find_element_by_name("byear").click()
+            wd.find_element_by_name("byear").clear()
+            wd.find_element_by_name("byear").send_keys(contact.byear)
+        wd.find_element_by_name("update").click()
+
+
+
+
+
 
 
