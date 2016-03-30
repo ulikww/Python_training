@@ -29,8 +29,7 @@ class GroupHelper:
         def delete_first_group(self):
             wd = self.app.wd
             self.Open_group_page()
-            #select first group
-            wd.find_element_by_name("selected[]").click()
+            self.select_first_group()
             #submit deletion
             wd.find_element_by_name("delete").click()
             self.Return_to_group_page()
@@ -43,12 +42,17 @@ class GroupHelper:
         def modification(self, group):
             wd = self.app.wd
             self.Open_group_page()
-            #select group
-            wd.find_element_by_name("selected[]").click()
+            self.select_first_group()
             #submit modification group
-            wd.find_element_by_css_selector("#content > form:nth-child(2) > input:nth-child(10)").click()
+            wd.find_element_by_name("edit").click()
             #modification group
             if group.Parent_group!="none":
                 if not wd.find_element_by_xpath(group.Parent_group).is_selected():
                     wd.find_element_by_xpath(group.Parent_group).click()
             wd.find_element_by_name("update").click()
+
+
+        def select_first_group(self):
+            wd = self.app.wd
+            wd.find_element_by_name("selected[]").click()
+

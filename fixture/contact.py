@@ -36,18 +36,20 @@ class ContactHelper:
     def delete_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
-        #select first contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_contact()
         #submit deletion
         wd.find_element_by_xpath("//div/div[4]/form[2]/div[2]/input").click()
         #confirm the deletion
         wd.switch_to_alert().accept()
 
+    def select_first_contact(self):
+        wd = self.app.wd
+        wd.find_element_by_name("selected[]").click()
+
     def modification(self, contact):
         wd = self.app.wd
         wd.find_element_by_link_text("home").click()
-        #select contact
-        wd.find_element_by_name("selected[]").click()
+        self.select_first_contact()
         #modification contact
         wd.find_element_by_css_selector("td.center:nth-child(8) > a:nth-child(1) > img:nth-child(1)").click()
 
