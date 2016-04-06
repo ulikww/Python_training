@@ -75,9 +75,10 @@ class ContactHelper:
         self.open_contact_list()
         contacts = []
         for element in wd.find_elements_by_name("entry"):
-            last = wd.find_element_by_tag_name("td").text
-            first = wd.find_element_by_tag_name("td").text
             id = element.find_element_by_name("selected[]").get_attribute("value")
+            td_cells = element.find_elements_by_tag_name("td")
+            first = td_cells[2].text
+            last = td_cells[1].text
             contacts.append(Contact(lastname=last,firstname=first,id=id))
         return contacts
 

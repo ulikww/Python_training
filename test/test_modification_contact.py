@@ -10,3 +10,4 @@ def test_modification_contact(app):
     app.contact.modification(Contact(bday="//div[@id='content']/form[1]/select[1]//option[7]",byear="1990",bmonth="//div[@id='content']/form[1]/select[2]//option[3]"))
     new_contacts = app.contact.get_contact_list()
     assert len(old_contacts) == len(new_contacts)
+    assert sorted(old_contacts, key = Contact.id_or_max)==sorted(new_contacts, key = Contact.id_or_max)
