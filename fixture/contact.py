@@ -31,10 +31,14 @@ class ContactHelper:
             wd.find_element_by_name(field_name).clear()
             wd.find_element_by_name(field_name).send_keys(text)
 
+
     def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def delete_contact_by_index(self,index):
         wd = self.app.wd
         self.open_contact_list()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         #submit deletion
         wd.find_element_by_xpath("//div/div[4]/form[2]/div[2]/input").click()
         #confirm the deletion
@@ -50,10 +54,18 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
 
-    def modification(self, contact):
+
+    def select_contact_by_index(self,index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def modification(self):
+        self.modification_contact_by_index(0)
+
+    def modification_contact_by_index(self,index, contact):
         wd = self.app.wd
         self.open_contact_list()
-        self.select_first_contact()
+        self.select_contact_by_index(index)
         #modification contact
         wd.find_element_by_css_selector("td.center:nth-child(8) > a:nth-child(1) > img:nth-child(1)").click()
         self.drop_down_list(contact.bday)
