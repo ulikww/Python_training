@@ -49,6 +49,18 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
+
+    def delete_contact_by_id(self,id):
+        wd = self.app.wd
+        self.open_contact_list()
+        self.select_contact_by_id(id)
+        #submit deletion
+        wd.find_element_by_xpath("//div/div[4]/form[2]/div[2]/input").click()
+        #confirm the deletion
+        wd.switch_to_alert().accept()
+        self.contact_cache = None
+
+
     def open_contact_list(self):
         wd = self.app.wd
         if not wd.current_url.endswith("/addressbook"):
@@ -62,6 +74,10 @@ class ContactHelper:
     def select_contact_by_index(self,index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_contact_by_id(self,id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def modification(self):
         self.modification_contact_by_index(0)
