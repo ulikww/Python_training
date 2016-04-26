@@ -12,4 +12,4 @@ def test_delete_some_contact(app, db, check_ui):
     old_contacts.remove(contact)
     assert old_contacts == new_contacts
     if check_ui:
-        assert new_contacts == app.group.get_contact_list()
+        assert new_contacts == app.contact.get_contact_list()

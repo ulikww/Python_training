@@ -91,6 +91,16 @@ class ContactHelper:
         wd.find_element_by_name("update").click()
         self.contact_cache = None
 
+    def modification_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.open_contact_to_edit_by_id(id)
+        self.drop_down_list(contact.bday)
+        self.drop_down_list(contact.bmonth)
+        self.change_field_value_contact("byear", contact.byear)
+        wd.find_element_by_name("update").click()
+        self.contact_cache = None
+
+
     def drop_down_list(self, text):
          wd = self.app.wd
          if text is not None:
@@ -127,6 +137,16 @@ class ContactHelper:
         self.open_contact_list()
         row = wd.find_elements_by_name("entry")[index]
         cell = row.find_elements_by_tag_name("td")[7]
+        cell.find_element_by_tag_name("a").click()
+
+    def open_contact_to_edit_by_id(self, id):
+        wd = self.app.wd
+        self.open_contact_list()
+        row = wd.find_element_by_name("selected[]").get_attribute("value")[int(id)]
+        #row =rows[int(id)]
+        #row = wd.find_element_by_css_selector("input[value='%s']" % id)
+        cells = row.find_elements_by_tag_name("td")
+        cell = cells[7]
         cell.find_element_by_tag_name("a").click()
 
 
