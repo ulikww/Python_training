@@ -142,11 +142,8 @@ class ContactHelper:
     def open_contact_to_edit_by_id(self, id):
         wd = self.app.wd
         self.open_contact_list()
-        row = wd.find_element_by_name("selected[]").get_attribute("value")[int(id)]
-        #row =rows[int(id)]
-        #row = wd.find_element_by_css_selector("input[value='%s']" % id)
-        cells = row.find_elements_by_tag_name("td")
-        cell = cells[7]
+        row = wd.find_element_by_css_selector(("input[value='%s']" % id)).find_element_by_xpath("./..").find_element_by_xpath("./..")
+        cell = row.find_elements_by_tag_name("td")[7]
         cell.find_element_by_tag_name("a").click()
 
 
