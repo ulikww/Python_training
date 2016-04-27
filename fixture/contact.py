@@ -27,6 +27,7 @@ class ContactHelper:
         self.change_field_value_contact("mobile",contact.mobilephone)
         self.change_field_value_contact("phone2",contact.secondaryphone)
         self.change_field_value_contact("work",contact.workphone)
+        self.change_field_value_contact("new_group",contact.group_in_contact)
 
     def change_field_value_contact(self,field_name,text):
         wd = self.app.wd
