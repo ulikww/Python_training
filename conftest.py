@@ -71,7 +71,10 @@ def load_from_module(module):
     return importlib.import_module("data.%s" % module).testdata
 
 def load_from_json(file):
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data/%s.json" % file)) as f:
+    file_path = os.path.dirname(os.path.abspath(__file__))
+    data_path = os.path.join(file_path, "data" )
+    json_path = os.path.join(data_path, "%s.json" % file)
+    with open(json_path) as f:
         return jsonpickle.decode(f.read())
 
 
