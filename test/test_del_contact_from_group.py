@@ -16,9 +16,19 @@ def test_del_contact_from_group(app, db):
             app.contact.create(
                Contact(firstname="Ульяна", middlename="Владимировна", lastname="Ватракшина", nickname="ulik", company="1c",
                         address="дмитровское ш 9",email="ulikwwwww@ya.ru",group_in_contact="//div[@id='content']/form/select[5]//option[2]"))
-    contact = random.choice(old_contacts)
-    app.contact.delete_contact_by_id(contact.id)
-    old_contacts.remove(contact)
+    contacts_in_group = db.get_contact_in_groups()
+    for id in contacts_in_group:
+        contact = random.choice(contacts_in_group)
+        app.contact.delete_contact_by_id(contact.id)
+
+
+
+
+     #if new_contacts
+
+    #contact = random.choice(old_contacts.group_in_contact)
+    #app.contact.delete_contact_by_id(contact.id)
+    #old_contacts.remove(contact)
         #new_contacts = db.get_contact_list()
         #old_contacts.append(contact)
         #assert sorted(old_contacts,key = Contact.id_or_max) == sorted(new_contacts,key = Contact.id_or_max)
