@@ -61,6 +61,17 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
+    def remove_contact_from_group(self,id):
+        wd = self.app.wd
+        self.open_contact_list()
+        for element in wd.find_elements_by_xpath("//div[@id='content']"):
+            if element.text != "":
+             #submit deletion
+                self.select_contact_by_id(id)
+                wd.find_element_by_name("remove").get_attribute("value")
+                # confirm the deletion
+                wd.switch_to_alert().accept()
+                self.contact_cache = None
 
     def open_contact_list(self):
         wd = self.app.wd
@@ -79,6 +90,7 @@ class ContactHelper:
     def select_contact_by_id(self,id):
         wd = self.app.wd
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
 
     def modification(self):
         self.modification_contact_by_index(0)

@@ -12,14 +12,15 @@ def test_del_contact_from_group(app, db):
     old_groups = db.get_group_list()
     if len(old_groups) == 0:
         app.group.create(Group(name="вспомогательная группа", header="вспомогательная группа", footer="вспомогательная группа"))
-        if len(old_contacts) == 0:
-            app.contact.create(
-               Contact(firstname="Ульяна", middlename="Владимировна", lastname="Ватракшина", nickname="ulik", company="1c",
-                        address="дмитровское ш 9",email="ulikwwwww@ya.ru",group_in_contact="//div[@id='content']/form/select[5]//option[2]"))
+    if len(old_contacts) == 0:
+        app.contact.create(
+            Contact(firstname="Ульяна", middlename="Владимировна", lastname="Ватракшина", nickname="ulik", company="1c",
+                    address="дмитровское ш 9",email="ulikwwwww@ya.ru",group_in_contact="//div[@id='content']/form/select[5]//option[2]"))
     contacts_in_group = db.get_contact_in_groups()
-    for id in contacts_in_group:
+    if len(contacts_in_group) != 0:
         contact = random.choice(contacts_in_group)
-        app.contact.delete_contact_by_id(contact.id)
+        app.contact.remove_contact_from_group(contact)
+        #app.contact.remove_contact_from_group(contact.group_in_contact)
 
 
 
