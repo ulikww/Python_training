@@ -14,6 +14,7 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.contact_cache = None
 
+
     def fill_contact_form(self, contact):
         wd = self.app.wd
         self.change_field_value_contact("firstname",contact.firstname)
@@ -91,6 +92,14 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
+    def create_contact_to_group(self, id, text):
+        wd = self.app.wd
+        self.open_contact_list()
+        self.select_contact_by_id(id)
+        #add to group
+        self.drop_down_list(text)
+        wd.find_element_by_name("add").click()
+        self.contact_cache = None
 
     def modification(self):
         self.modification_contact_by_index(0)
